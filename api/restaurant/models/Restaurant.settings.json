@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "restaurants",
+  "info": {
+    "name": "restaurant",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "unique": true,
+      "required": true,
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "restaurants"
+    }
+  }
+}
