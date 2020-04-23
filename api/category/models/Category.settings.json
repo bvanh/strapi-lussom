@@ -12,14 +12,14 @@
   },
   "attributes": {
     "name": {
-      "type": "text",
       "unique": true,
-      "required": true
+      "required": true,
+      "type": "text"
     },
-    "restaurants": {
-      "collection": "restaurant",
-      "via": "categories",
-      "dominant": true
+    "news": {
+      "collection": "news",
+      "dominant": true,
+      "via": "categories"
     }
   }
 }

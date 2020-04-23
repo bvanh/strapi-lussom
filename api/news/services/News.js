@@ -1,8 +1,8 @@
-/* global Restaurant */
+/* global News */
 'use strict';
 
 /**
- * Restaurant.js service
+ * News.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -18,43 +18,43 @@ const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
-   * Promise to fetch all restaurants.
+   * Promise to fetch all news.
    *
    * @return {Promise}
    */
 
   fetchAll: (params, populate) => {
     // Select field to populate.
-    const withRelated = populate || Restaurant.associations
+    const withRelated = populate || News.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
     const filters = convertRestQueryParams(params);
 
-    return Restaurant.query(buildQuery({ model: Restaurant, filters }))
+    return News.query(buildQuery({ model: News, filters }))
       .fetchAll({ withRelated })
       .then(data => data.toJSON());
   },
 
   /**
-   * Promise to fetch a/an restaurant.
+   * Promise to fetch a/an news.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Restaurant.associations
+    const populate = News.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Restaurant.forge(_.pick(params, 'id')).fetch({
+    return News.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an restaurant.
+   * Promise to count a/an news.
    *
    * @return {Promise}
    */
@@ -63,54 +63,54 @@ module.exports = {
     // Convert `params` object to filters compatible with Bookshelf.
     const filters = convertRestQueryParams(params);
 
-    return Restaurant.query(buildQuery({ model: Restaurant, filters: _.pick(filters, 'where') })).count();
+    return News.query(buildQuery({ model: News, filters: _.pick(filters, 'where') })).count();
   },
 
   /**
-   * Promise to add a/an restaurant.
+   * Promise to add a/an news.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Restaurant.associations.map(ast => ast.alias));
-    const data = _.omit(values, Restaurant.associations.map(ast => ast.alias));
+    const relations = _.pick(values, News.associations.map(ast => ast.alias));
+    const data = _.omit(values, News.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Restaurant.forge(data).save();
+    const entry = await News.forge(data).save();
 
     // Create relational data and return the entry.
-    return Restaurant.updateRelations({ id: entry.id , values: relations });
+    return News.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an restaurant.
+   * Promise to edit a/an news.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Restaurant.associations.map(ast => ast.alias));
-    const data = _.omit(values, Restaurant.associations.map(ast => ast.alias));
+    const relations = _.pick(values, News.associations.map(ast => ast.alias));
+    const data = _.omit(values, News.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Restaurant.forge(params).save(data);
+    const entry = await News.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Restaurant.updateRelations(Object.assign(params, { values: relations }));
+    return News.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an restaurant.
+   * Promise to remove a/an news.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Restaurant.associations.map(association => {
+    News.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -127,41 +127,41 @@ module.exports = {
       }
     });
 
-    await Restaurant.updateRelations(params);
+    await News.updateRelations(params);
 
-    return Restaurant.forge(params).destroy();
+    return News.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an restaurant.
+   * Promise to search a/an news.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('restaurant', params);
+    const filters = strapi.utils.models.convertParams('news', params);
     // Select field to populate.
-    const populate = Restaurant.associations
+    const populate = News.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Restaurant.associations.map(x => x.alias);
-    const searchText = Object.keys(Restaurant._attributes)
-      .filter(attribute => attribute !== Restaurant.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Restaurant._attributes[attribute].type));
+    const associations = News.associations.map(x => x.alias);
+    const searchText = Object.keys(News._attributes)
+      .filter(attribute => attribute !== News.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(News._attributes[attribute].type));
 
-    const searchInt = Object.keys(Restaurant._attributes)
-      .filter(attribute => attribute !== Restaurant.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Restaurant._attributes[attribute].type));
+    const searchInt = Object.keys(News._attributes)
+      .filter(attribute => attribute !== News.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(News._attributes[attribute].type));
 
-    const searchBool = Object.keys(Restaurant._attributes)
-      .filter(attribute => attribute !== Restaurant.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Restaurant._attributes[attribute].type));
+    const searchBool = Object.keys(News._attributes)
+      .filter(attribute => attribute !== News.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(News._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Restaurant.query(qb => {
+    return News.query(qb => {
       if (!_.isNaN(_.toNumber(query))) {
         searchInt.forEach(attribute => {
           qb.orWhereRaw(`${attribute} = ${_.toNumber(query)}`);
@@ -175,7 +175,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Restaurant.client) {
+      switch (News.client) {
         case 'mysql':
           qb.orWhereRaw(`MATCH(${searchText.join(',')}) AGAINST(? IN BOOLEAN MODE)`, `*${query}*`);
           break;

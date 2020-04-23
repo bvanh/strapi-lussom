@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "restaurants",
+  "collectionName": "news",
   "info": {
-    "name": "restaurant",
+    "name": "news",
     "description": ""
   },
   "options": {
@@ -12,16 +12,22 @@
   },
   "attributes": {
     "name": {
+      "type": "text",
       "unique": true,
-      "required": true,
+      "required": true
+    },
+    "shortContent": {
       "type": "text"
     },
-    "description": {
+    "content": {
       "type": "text"
     },
     "categories": {
       "collection": "category",
-      "via": "restaurants"
+      "via": "news"
+    },
+    "thumbnail": {
+      "type": "text"
     }
   }
 }

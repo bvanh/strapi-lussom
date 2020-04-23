@@ -28,8 +28,8 @@
     "mode": "block"
   },
   "cors": {
-    "enabled": false,
-    "origin": "http://demoapi.com",
+    "enabled": true,
+    "origin": "*",
     "expose": [
       "WWW-Authenticate",
       "Server-Authorization"
@@ -49,7 +49,9 @@
       "Content-Type",
       "Authorization",
       "X-Frame-Options",
-      "Origin"
+      "Origin",
+      "Access-Control-Allow-Origin",
+       "*"
     ]
   },
   "ip": {
