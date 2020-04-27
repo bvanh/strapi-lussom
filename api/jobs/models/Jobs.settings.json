@@ -1,0 +1,52 @@
+{
+  "connection": "default",
+  "collectionName": "jobs",
+  "info": {
+    "name": "jobs",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "reason": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "skill": {
+      "type": "text"
+    },
+    "salary": {
+      "type": "text"
+    },
+    "location": {
+      "type": "text"
+    },
+    "expried": {
+      "type": "date"
+    },
+    "categories": {
+      "enum": [
+        "Technology",
+        "Business/ Marketing",
+        "Business Support",
+        "Product / Design - Creative"
+      ],
+      "type": "enumeration",
+      "default": "Technology"
+    },
+    "vacancies": {
+      "type": "integer"
+    },
+    "experience": {
+      "type": "integer"
+    }
+  }
+}
