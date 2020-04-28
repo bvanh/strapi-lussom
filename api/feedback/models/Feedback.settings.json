@@ -12,13 +12,18 @@
   },
   "attributes": {
     "name": {
-      "type": "text"
+      "type": "text",
+      "unique": true,
+      "required": true
     },
     "email": {
-      "type": "email"
+      "type": "email",
+      "required": true,
+      "unique": true
     },
     "feedback": {
-      "type": "text"
+      "type": "text",
+      "required": true
     }
   }
 }
